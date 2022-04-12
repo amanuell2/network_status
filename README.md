@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Connection status
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We have a dapp: sub.id . There are many connections to different blockchain networks and in order to always be aware of which ones work, we would like the page with the status of connections.
 
 ## Available Scripts
 
