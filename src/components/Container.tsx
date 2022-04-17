@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
-import throttle from 'lodash.throttle';
-import { useMemo } from 'react';
 import useThrottledEffect from '../hooks/useThrottledEffect';
 
 const Container = () => {
@@ -24,6 +22,7 @@ const Container = () => {
       setConnections(data);
     };
     fetchData();
+ 
   }, []);
 
   const getNetworkStatus = () => {
@@ -35,18 +34,23 @@ const Container = () => {
         });
     }
   };
-
-  useThrottledEffect(()=>{
+  useEffect(() => {
     getNetworkStatus();
-  }, 50000 ,[parsedConnections]);
-  
+  }, [connections]);
 
+  useThrottledEffect(
+    () => {
+      console.log('throttled effect');
+      getNetworkStatus();
+    },
+    50000,
+    [parsedConnections]
+  );
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center  py-4 px-2">
       <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 content-start">
         {Object.keys(parsedConnections).map((key: string) => {
-          
           return (
             <Card
               key={key}
